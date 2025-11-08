@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="text-2xl font-semibold mb-6 text-center">My Files</h2>
+
+<!-- Upload Form -->
+<form action="/upload" method="POST" enctype="multipart/form-data" 
+      class="mb-6 flex flex-col sm:flex-row items-center gap-3 justify-center">
+  <input type="file" name="file" class="border dark:border-gray-600 p-2 rounded-lg w-full sm:w-auto">
+  <button type="submit" 
+          class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 hover:scale-105 transition">
+    Upload & Compress
+  </button>
+</form>
+
+{% if files %}
+<div class="overflow-x-auto">
+  <table class="w-full border-collapse">
+    <thead>
+      <tr class="bg-gray-200 dark:bg-gray-700">
+        <th class="p-3 text-left">Filename</th>
+        <th class="p-3 text-left">Preview</th>
+        <th class="p-3 text-left">Size</th>
+        <th class="p-3 text-left">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for file in files %}
+      <tr class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+        <td class="p-3">{{ file.filename }}</td>
+
+        <!-- Preview Section -->
+        <td class="p-3">
+          {% if file.filename.endswith('.png') or file.filename.endswith('.jpg') or file.filename.endswith('.jpeg') %}
+          <img src="/preview/{{ file._id }}" alt="preview" class="w-16 h-16 object-cover rounded-lg">
+          {% elif file.filename.endswith('.pdf') %}
+          <embed src="/preview/{{ file._id }}" type="application/pdf" width="80" height="80" />
+          {% elif file.filename.endswith('.txt') %}
+          <iframe src="/preview/{{ file._id }}" width="80" height="80" class="rounded-lg"></iframe>
+          {% else %}
+          <span class="text-gray-400 text-sm">N/A</span>
+          {% endif %}
+        </td>
+
+        <td class="p-3">{{ file.size }} bytes</td>
+        <td class="p-3">
+          <a href="/download/{{ file._id }}" 
+             class="text-blue-600 hover:underline hover:scale-105 inline-block transition">
+             ⬇️ Download
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<p class="text-center text-gray-500 mt-4">No files uploaded yet.</p>
+{% endif %}
+{% endblock %}

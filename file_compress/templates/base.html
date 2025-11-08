@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" class="transition-colors duration-500">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ title or "File Compressor App" }}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    // 🌙 Dark mode toggle persistence
+    if (localStorage.getItem("theme") === "dark") {
+      document.documentElement.classList.add("dark");
+    }
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      html.classList.toggle("dark");
+      if (html.classList.contains("dark")) {
+        localStorage.setItem("theme", "dark");
+      } else {
+        localStorage.setItem("theme", "light");
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-500 min-h-screen flex flex-col">
+  <!-- 🌐 Navbar -->
+  <nav class="bg-blue-600 dark:bg-blue-800 text-white px-8 py-4 flex justify-between items-center shadow-md">
+ <a href="/" class="hover:text-yellow-300 transition">  <h1 class="text-xl font-semibold">File Compressor</h1></a>
+    <div class="flex items-center gap-4">
+      {% if session.username %}
+      <a href="/myfiles" class="hover:text-yellow-300 transition">My Files</a>
+      <a href="/logout" class="hover:text-yellow-300 transition">Logout</a>
+      {% else %}
+      <a href="/" class="hover:text-yellow-300 transition">Home</a>
+      <a href="/login" class="hover:text-yellow-300 transition">Login</a>
+      <a href="/signup" class="hover:text-yellow-300 transition">Sign Up</a>
+      {% endif %}
+      <button onclick="toggleTheme()" class="bg-gray-800 dark:bg-gray-200 dark:text-gray-900 text-white px-3 py-1 rounded-lg hover:scale-105 transition">
+    
+      </button>
+    </div>
+  </nav>
+
+  <!-- 💫 Main Content -->
+  <main class="max-w-3xl mx-auto mt-10 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg flex-1 transition-colors duration-500">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- 🧭 Footer -->
+  <footer class="text-center py-4 mt-10 text-sm text-gray-500 dark:text-gray-400">
+    © 2024 File Compressor | Built by <span class="font-semibold text-blue-600 dark:text-blue-400">us </span>
+  </footer>
+</body>
+</html>

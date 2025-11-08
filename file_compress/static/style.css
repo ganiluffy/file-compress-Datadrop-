@@ -1,0 +1,38 @@
+.bg-gradient {
+  background: linear-gradient(135deg, #74ABE2, #5563DE);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-card {
+  width: 350px;
+  padding: 30px;
+  border-radius: 15px;
+  background: white;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+h3 {
+  color: #333;
+}
+
+form input {
+  height: 45px;
+}
+
+button {
+  height: 45px;
+  font-size: 16px;
+}
+
+
+body {
+  background: linear-gradient(120deg, #f8f9fa, #dfe9f3);
+  min-height: 100vh;
+}
+
+.navbar {
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
